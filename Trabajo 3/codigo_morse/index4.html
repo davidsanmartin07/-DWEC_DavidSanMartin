@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traductor código morse</title>
+</head>
+<body>
+    <h3>Traductor de código morse</h3>
+    <pre id="resultado"></pre>
+
+    <script>
+        let morse = {
+            "A": ".-",
+            "B": "-...",
+            "C": "-.-.",
+            "D": "-..",
+            "E": ".",
+            "F": "..-.",
+            "G": "--.",
+            "H": "....",
+            "I": "..",
+            "J": ".---",
+            "K": "-.-",
+            "L": ".-..",
+            "M": "--",
+            "N": "-.",
+            "Ñ": "--.--",
+            "O": "---",
+            "P": ".--.",
+            "Q": "--.-",
+            "R": ".-.",
+            "S": "...",
+            "T": "-",
+            "U": "..-",
+            "Ü": "..--",
+            "V": "...-",
+            "W": ".--",
+            "X": "-..-",
+            "Y": "-.--",
+            "Z": "--..",
+            "0": "-----",
+            "1": ".----",
+            "2": "..---",
+            "3": "...--",
+            "4": "....-",
+            "5": ".....",
+            "6": "-....",
+            "7": "--...",
+            "8": "---..",
+            "9": "----.",
+            ".": ".-.-.-",
+            ",": "--..--",
+            "?": "..--..",
+            "/": "-..-.",
+            "\"": ".-..-."
+        };
+
+        function textoAMorse(texto) {
+            let resultado = "";
+
+            for (let letra of texto.toUpperCase()) {
+                if (letra === ' ') {
+                    resultado += ' ';
+                } else {
+                    resultado += morse[letra] + ' ';
+                }
+            }
+            return resultado;
+        }
+
+        function morseATexto(codigo) {
+            let resultado = '';
+            let palabras = codigo.split('  ');
+
+            for (let palabra of palabras) {
+                let simbolos = palabra.split(' ');
+
+                for (let simbolo of simbolos) {
+                    for (let letra in morse) {
+                        if (morse[letra] === simbolo) {
+                            resultado += letra;
+                        }
+                    }
+                }
+
+                resultado += ' ';
+            }
+
+            return resultado;
+        }
+
+        function traducir() {
+            let entrada = prompt('Escribe un texto o un código morse:');
+            entrada = entrada.replace(/—/g, '-');   // si escribes la raya larga, la pasa a guion
+
+            let primero = entrada[0];
+            let salida;
+
+            if (primero === '.' || primero === '-') {
+                salida = morseATexto(entrada);
+            } else {
+                salida = textoAMorse(entrada);
+            }
+
+            document.getElementById('resultado').textContent = salida;
+        }
+
+        traducir();
+    </script>
+</body>
+</html>

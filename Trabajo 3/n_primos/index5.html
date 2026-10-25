@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Números primos</title>
+</head>
+<body>
+  <h3>Números primos</h3>
+  <input type="number" id="numero" min="1" placeholder="Escribe un número">
+  <button onclick="mostrarPrimos()">Mostrar</button>
+  <div id="resultado"></div>
+
+  <script>
+    function esPrimo(n) {
+      if (n < 2) {
+        return false;
+      }
+
+      for (let i = 2; i < n; i++) {
+        if (n % i === 0) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    function mostrarPrimos() {
+      let numero = Number(document.getElementById('numero').value);
+      let tabla = '<table border="1"><tr>';
+
+      for (let i = 1; i <= numero; i++) {
+        if (i === 1 || esPrimo(i)) {
+          tabla += '<td>' + i + '</td>';
+        }
+      }
+
+      tabla += '</tr></table>';
+      document.getElementById('resultado').innerHTML = tabla;
+    }
+  </script>
+</body>
+</html>
